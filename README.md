@@ -2,7 +2,7 @@
 
 :information_source: &nbsp;This repo contains questions and exercises on various technical topics, sometimes related to DevOps and SRE :)
 
-:bar_chart: &nbsp;There are currently **1417** questions
+:bar_chart: &nbsp;There are currently **1435** questions
 
 :busts_in_silhouette: &nbsp;[Join](https://www.facebook.com/groups/538897960007080) our [Facebook group](https://www.facebook.com/groups/538897960007080) for additional exercises, articles and more resources on DevOps
 
@@ -98,10 +98,13 @@ Red Hat:
 
 "DevOps describes approaches to speeding up the processes by which an idea (like a new software feature, a request for enhancement, or a bug fix) goes from development to deployment in a production environment where it can provide value to the user. These approaches require that development teams and operations teams communicate frequently and approach their work with empathy for their teammates. Scalability and flexible provisioning are also necessary. With DevOps, those that need power the most, get it—through self service and automation. Developers, usually coding in a standard development environment, work closely with IT operations to speed software builds, tests, and releases—without sacrificing reliability."
 
+Google:
+
+"...The organizational and cultural movement that aims to increase software delivery velocity, improve service reliability, and build shared ownership among software stakeholders"
 </b></details>
 
 <details>
-<summary>What are the benefits of DevOps? What it can help us to achieve?</summary><br><b>
+<summary>What are the benefits of DevOps? What can it help us to achieve?</summary><br><b>
 
   * Collaboration
   * Improved delivery
@@ -114,9 +117,9 @@ Red Hat:
 <details>
 <summary>What are the anti-patterns of DevOps?</summary><br><b>
 
-* One person is in charge of different tasks. For example there is only one person who is allowed to merge the code of everyone else
+* One person is in charge of different tasks. For example there is only one person who is allowed to merge the code of everyone else into the repository
 * Treating production differently from development environment. For example, not implementing security in development environment
-* Not allowing to push to production on Friday ;)
+* Not allowing someone to push to production on Friday ;)
 </b></details>
 
 <details>
@@ -130,7 +133,7 @@ Each piece of code (change/patch) is verified, to make the change is safe to mer
 <details>
 <summary>Can you describe an example of a CI (and/or CD) process starting the moment a developer submitted a change/PR to a repository?</summary><br><b>
 
-There is no one answer for such question as CI processes vary depending on the technologies used and the type of the project to where the change was submitted.
+There are many answers for such question as CI processes vary depending on the technologies used and the type of the project to where the change was submitted.
 Such processes can include one or more of the following stages:
 
 * Compile 
@@ -142,9 +145,9 @@ Such processes can include one or more of the following stages:
 
 For example:
 
-A developer submitted a PR to a project. The PR triggered two jobs (or one combined job). One job for lint-testing the change and the second job for building a package using the submitted change and running multiple api/scenario tests. Once all tests passed and the change was approved by a maintainer/core, it's merged/pushed to the repository. If some of the tests failed, the change will not be allowed to merged/pushed to the repository.
+A developer submitted a pull request to a project. The PR (pull request) triggered two jobs (or one combined job). One job for running lint test on the change and the second job for building a package which includes the submitted change, and running multiple api/scenario tests using that package. Once all tests passed and the change was approved by a maintainer/core, it's merged/pushed to the repository. If some of the tests failed, the change will not be allowed to merged/pushed to the repository.
 
-A different process can describe how a developer pushes code to a repository, a workflow then triggered to build a container image and push it the registry. Once in the registry, the k8s cluster is applied with the new changes.
+A complete different CI process can describe how a developer pushes code to a repository, a workflow then triggered to build a container image and push it to the registry. Once in the registry, the k8s cluster is applied with the new changes.
 </b></details>
 
 <details>
@@ -164,15 +167,28 @@ For more info please read [here](https://www.atlassian.com/continuous-delivery/c
 </b></details>
 
 <details>
-<summary>Would you prefer a "configuration->deployment" model or "deployment->configuration"?</summary><br><b>
+<summary>Would you prefer a "configuration->deployment" model or "deployment->configuration"? Why?</summary><br><b>
+
+Both have advantages and disadvantages.
+With "configuration->deployment" model for example, where you build one image to be used by multiple deployments, there is less chance of deployments being different from one another, so it has a clear advantage of a consistent environment.
 </b></details>
 
 <details>
 <summary>What CI/CD best practices are you familiar with? Or what do you consider as CI/CD best practice?</summary><br><b>
+
+* Automated process of building, testing and deploying software
+* Commit and test often
+* Testing/Staging environment should be a clone of production environment
 </b></details>
 
 <details>
-<summary>Where do you store CI/CD pipelines? (Application repository, one central repository, ...)? Why?</summary><br><b>
+<summary>Where do you store CI/CD pipelines? Why?</summary><br><b>
+
+There are multiple approaches as to where to store the CI/CD pipeline definitions:
+
+1. App Repository - store them in the same repository of the application they are building or testing
+2. Central Repository - store all organization's/project's CI/CD pipelines in one separate repository
+2. CI repo for every app repo - you separate CI related code from app code but you don't put everything in one place
 </b></details>
 
 <details>
@@ -185,14 +201,18 @@ For more info please read [here](https://www.atlassian.com/continuous-delivery/c
   * Logging
   * Code review
   * Code coverage
+  * Issue Tracking
+  * Containers and Containers Orchestration
   * Tests</summary><br><b>
-  * CI/CD - Jenkins, Circle CI, Travis
+  * CI/CD - Jenkins, Circle CI, Travis, Drone, Argo CD, Zuul
   * Provisioning infrastructure - Terraform, CloudFormation
   * Configuration Management - Ansible, Puppet, Chef
   * Monitoring & alerting - Prometheus, Nagios
   * Logging - Logstash, Graylog, Fluentd
   * Code review - Gerrit, Review Board
   * Code coverage - Cobertura, Clover, JaCoCo
+  * Issue tracking - Jira, Bugzilla
+  * Containers and Containers Orchestration - Docker, Podman, Kubernetes, Nomad
   * Tests - Robot, Serenity, Gauge
 </b></details>
 
@@ -200,9 +220,10 @@ For more info please read [here](https://www.atlassian.com/continuous-delivery/c
 <summary>What are you taking into consideration when choosing a tool/technology?</summary><br><b>
 
 In your answer you can mention one or more of the following:
-  * mature vs. cutting edge
+  * mature/stable vs. cutting edge
   * community size
   * architecture aspects - agent vs. agentless, master vs. masterless, etc.
+  * learning curve
 </b></details>
 
 <details>
@@ -218,16 +239,46 @@ which follows the immutable infrastructure paradigm.
 </b></details>
 
 <details>
-<summary>What ways are you familiar with to deliver a software? What are the advantages and disadvantages of each method?</summary><br><b>
+<summary>Explain "Software Distribution"</summary><br><b>
+
+Read [this](https://venam.nixers.net/blog/unix/2020/03/29/distro-pkgs.html) fantastic article on the topic.
+
+From the article: "Thus, software distribution is about the mechanism and the community that takes the burden and decisions to build an assemblage of coherent software that can be shipped."
+</b></details>
+
+<details>
+<summary>Why are there multiple software distributions? What differences can they have?</summary><br><b>
+
+Different distributions can focus on different things like: focus on different environments (server vs. mobile vs. desktop), support specific hardware, specialize in different domains (security, multimedia, ...), etc. Basically, different aspects of the software and what it supports, get different priority in each distribution.
+</b></details>
+
+<details>
+<summary>What is a Software Repository?</summary><br><b>
+
+Wikipedia: "A software repository, or “repo” for short, is a storage location for software packages. Often a table of contents is stored, as well as metadata."
+
+Read more [here](https://en.wikipedia.org/wiki/Software_repository)
+</b></details>
+
+<details>
+<summary>What ways are there to distribute software? What are the advantages and disadvantages of each method?</summary><br><b>
 
   * Source - Maintain build script within version control system so that user can build your app after cloning repository. Advantage: User can quickly checkout different versions of application. Disadvantage: requires build tools installed on users machine.
-  * Archive - collect all your app files into one archive (e.g. tar) and deliver it to the user. Advantage: Only tool needed is an unarchiver. Disadvantage: Requires repeating the same procedure when updating, not good if there are a lot of dependencies.
+  * Archive - collect all your app files into one archive (e.g. tar) and deliver it to the user. Advantage: User gets everything he needs in one file. Disadvantage: Requires repeating the same procedure when updating, not good if there are a lot of dependencies.
   * Package - depends on the OS, you can use your OS package format (e.g. in RHEL/Fefodra it's RPM) to deliver your software with a way to install, uninstall and update it using the standard packager commands. Advantages: Package manager takes care of support for installation, uninstallation, updating and dependency management. Disadvantage: Requires managing package repository.
   * Images - Either VM or container images where your package is included with everything it needs in order to run successfully. Advantage: everything is preinstalled, it has high degree of environment isolation. Disadvantage: Requires knowledge of building and optimizing images.
 </b></details>
 
 <details>
+<summary>Are you familiar with "The Cathedral and the Bazaar models"? Explain each of the models</summary><br><b>
+
+* Cathedral - source code released when software is released
+* Bazaar - source code is always available publicly (e.g. Linux Kernel)
+</b></details>
+
+<details>
 <summary>What is caching? How does it works? Why is it important?</summary><br><b>
+
 	Caching is fast access to frequently used resources which are computationally expensive or IO intensive and do not change often. There can be several layers of cache that can start from CPU caches to distributed cache systems. Common ones are in memory caching and distributed caching. <br/> Caches are typically data structures that contains some data, such as a hashtable or dictionary. However, any data structure can provide caching capabilities, like set, sorted set, sorted dictionary etc. While, caching is used in many applications, they can create subtle bugs if not implemented correctly or used correctly. For example,cache invalidation, expiration or updating is usually quite challenging and hard.
 </b></details>
 
@@ -283,13 +334,9 @@ There are multiple ways to answer this question (there is no right and wrong her
 </b></details>
 
 <details>
-<summary>What are the differences between SRE and DevOps?</summary><br><b>
-</b></details>
+<summary>What is Chaos Engineering?</summary><br><b>
 
-<details>
-<summary>What SRE team is responsible for?</summary><br><b>
-
-One can argue whether it's per company definition or a global one but at least according to a large companies, like Google for example, the SRE team is responsible for availability, latency, performance, efficiency, change management, monitoring, emergency response, and capacity planning of their services
+Read about Chaos Engineering [here](https://en.wikipedia.org/wiki/Chaos_engineering)
 </b></details>
 
 <details>
@@ -304,7 +351,6 @@ One can argue whether it's per company definition or a global one but at least a
 	* MTBF (mean time between failues) is the amount of time between failures of the system. These errors can be intermittent or fatal.
 
 </b></details>
-
 
 <details>
 <summary>What is "infrastructure as code"? What implementation of IAC are you familiar with?</summary><br><b>
@@ -388,12 +434,18 @@ Note: cross-dependency is when you have two or more changes to separate projects
 <summary>Have you contributed to an open source project? Tell me about this experience</summary><br><b>
 </b></details>
 
-<details>
-<summary>Are you familiar with "The Cathedral and the Bazaar models"? Explain each of the models</summary><br><b>
+#### SRE
 
-* Cathedral - source code released when software is released
-* Bazaar - source code is always available publicly (e.g. Linux Kernel)
+<details>
+<summary>What are the differences between SRE and DevOps?</summary><br><b>
 </b></details>
+
+<details>
+<summary>What SRE team is responsible for?</summary><br><b>
+
+One can argue whether it's per company definition or a global one but at least according to a large companies, like Google for example, the SRE team is responsible for availability, latency, performance, efficiency, change management, monitoring, emergency response, and capacity planning of their services
+</b></details>
+
 
 ## Jenkins
 
@@ -2208,8 +2260,10 @@ Read more [here](https://www.globalsign.com/en/blog/what-is-hsts-and-how-do-i-us
 <details>
 <summary>What is your experience with Linux?</summary><br><b>
 
-An open question. Answer based on your real experience. You can highlight one or more of the following:
+Only you know :)
+Some ideas on what to focus:
 
+* Administration
 * Troubleshooting & Debugging
 * Storage
 * Networking
@@ -2293,12 +2347,12 @@ mv command.
 </b></details>
 
 <details>
-<summary>What is special about /tmp when compared to other paths?</summary><br><b>
+<summary>What is special about /tmp directory when compared to other directories?</summary><br><b>
 </b></details>
 
 <details>
 <summary>Explain each field in the output of `ls -l` command</summary><br><b>
-It shows a detailed list of files in a long format. From the left;
+It shows a detailed list of files in a long format. From the left:
 
 * file permissions, number of links, owner name, owner group, file size, timestamp of last modification and directory/file name
 </b></details>
@@ -2312,6 +2366,8 @@ These are files directly not displayed after performing a standard ls direct lis
 
 <details>
 <summary>Explain piping. How do you perform piping?</summary><br><b>
+
+Using a pipe in Linux, allows you to send the output of one to another (also called redirection). For example: `cat /etc/services | wc -l`
 </b></details>
 
 <details>
@@ -2361,7 +2417,6 @@ history command or .bash_history file
 <summary>How to change the permissions of a file?</summary><br><b>
 
 Using the `chmod` command.
-
 </b></details>
 
 <details>
@@ -2446,6 +2501,8 @@ Hardware -> Kernel -> <u>Daemons</u>, System Libraries, Server Display.
 
 <details>
 <summary>Where system logs are located?</summary><br><b>
+
+/var/log
 </b></details>
 
 <details>
@@ -4676,7 +4733,7 @@ The master coordinates all the workflows in the cluster:
 </b></details>
 
 <details>
-<summary>What do we need worker nodes for?</summary><br><b>
+<summary>What do we need the worker nodes for?</summary><br><b>
 
 The workers are the nodes which run the applications and workloads.
 </b></details>
@@ -4685,10 +4742,39 @@ The workers are the nodes which run the applications and workloads.
 <summary>True or False? Every cluster must have 0 or more master nodes and 1 or more workers</summary><br><b>
 
 False. A Kubernetes cluster consists of at least 1 master and 0 or more workers.
-</b></details>
+</b></details> 
+
+#### Pod
 
 <details>
 <summary>Explain what is a pod</summary><br><b>
+</b></details>
+
+<details>
+<summary>How many containers can a pod contain?</summary><br><b>
+
+Multiple containers but in most cases it would be one container per pod.
+</b></details>
+
+<details>
+<summary>What does it mean that "pods are ephemeral?</summary><br><b>
+
+It means they would eventually die and pods are unable to heal so it is recommended that you don't create them directly.
+</b></details>
+
+<details>
+<summary>What is a service in Kubernetes?</summary><br><b>
+
+A permanent IP address that can be attached to a pod.
+Even if connected, their lifecycles aren't connected.
+</b></details>
+
+<details>
+<summary>What is the difference between an external and an internal service?</summary><br><b>
+</b></details>
+
+<details>
+<summary>What is Ingress?</summary><br><b>
 </b></details>
 
 <details>
@@ -4737,13 +4823,28 @@ False. When a namespace is deleted, the resources in that namespace are deleted 
 </b></details>
 
 <details>
+<summary>What Kube Proxy does?</summary><br><b>
+</b></details>
+
+<details>
+<summary>What is etcd?</summary><br><b>
+</b></details>
+
+<details>
+<summary>True or False? application data is not stored in etcd</summary><br><b>
+
+True
+</b></details>
+
+<details>
 <summary>What "Resources Quotas" are used for and how?</summary><br><b>
 </b></details>
 
 <details>
-<summary>Explain ConfigMaps</summary><br><b>
+<summary>Explain ConfigMap</summary><br><b>
 
 Separate configuration from pods.
+It's good for cases where you might need to change configuration at some point but you don't want to restart the application or rebuild the image so you create a ConfigMap and connect it to a pod but externally to the pod.
 </b></details>
 
 <details>
@@ -4751,6 +4852,12 @@ Separate configuration from pods.
 
 1. Create it (from key&value, a file or an env file)
 2. Attach it. Mount a configmap as a volume
+</b></details>
+
+<details>
+<summary>Trur or False? Sensitive data, like credentials, should be stored in a ConfigMap</summary><br><b>
+
+False. Use secret.
 </b></details>
 
 <details>
@@ -4929,7 +5036,7 @@ kubectl run nginx --image=nginx --restart=Never --port 80 --expose
 </b></details>
 
 <details>
-<summary>Why to create kind deployment, if pods can be launched with replicaset ? </summary><br><b>
+<summary>Why to create kind deployment, if pods can be launched with replicaset?</summary><br><b>
 </b></details>
 
 <details>
@@ -5070,6 +5177,26 @@ It includes:
 <summary>What is kubconfig? What do you use it for?</summary><br><b>
 </b></details>
 
+<details>
+<summary>What is a "Deployment" in Kuberenetes?</summary><br><b>
+</b></details>
+
+<details>
+<summary>Can you use a Deployment for stateful applications?</summary><br><b>
+</b></details>
+
+<details>
+<summary>Explain StatefulSet</summary><br><b>
+</b></details>
+
+<details>
+<summary>What is the purpose of ReplicaSet?</summary><br><b>
+</b></details>
+
+<details>
+<summary>How a ReplicaSet works?</summary><br><b>
+</b></details>
+
 #### Kubernetes Secrets
 
 <details>
@@ -5107,6 +5234,12 @@ kubectl create secret generic some-secret --from-file=/some/file.txt
 
 <details>
 <summary>What is PersistentVolumeClaim?</summary><br><b>
+</b></details>
+
+<details>
+<summary>True or False? Kubernetes manages data persistence</summary><br><b>
+
+False
 </b></details>
 
 <details>
@@ -5165,6 +5298,12 @@ Kubectx, Kubens, ...
 <summary>What is Kubeconfig?</summary><br><b>
 </b></details>
 
+#### Helm
+
+<details>
+<summary>What is Helm?</summary><br><b>
+</b></details>
+
 #### Submariner
 
 <details>
@@ -5182,6 +5321,12 @@ You can learn more [here](https://submariner-io.github.io)
   * Broker
   * Gateway Engine
   * Route Agent</summary><br><b>
+</b></details>
+
+#### Istio
+
+<details>
+<summary>What is Istio? What is it used for?</summary><br><b>
 </b></details>
 
 ## Coding
