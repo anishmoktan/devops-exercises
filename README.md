@@ -2,17 +2,15 @@
 
 :information_source: &nbsp;This repo contains questions and exercises on various technical topics, sometimes related to DevOps and SRE :)
 
-:bar_chart: &nbsp;There are currently **1435** questions
+:bar_chart: &nbsp;There are currently **1518** questions
 
-:busts_in_silhouette: &nbsp;[Join](https://www.facebook.com/groups/538897960007080) our [Facebook group](https://www.facebook.com/groups/538897960007080) for additional exercises, articles and more resources on DevOps
+:books: &nbsp;To learn more about DevOps and SRE, check the resources in [devops-resources](https://github.com/bregman-arie/devops-resources) repository
 
 :warning: &nbsp;You can use these for preparing for an interview but most of the questions and exercises don't represent an actual interview. Please read [Q&A](common-qa.md) for more details
 
-:thought_balloon: &nbsp;If you wonder "How to prepare for a DevOps interview?", you might want to read some of my suggestions [here](prepare_for_interview.md)
+:busts_in_silhouette: &nbsp;[Join](https://www.facebook.com/groups/538897960007080) our [DevOps community](https://www.facebook.com/groups/538897960007080) where we have discussions and resources on DevOps
 
-:pencil: &nbsp;You can add more questions and exercises by submitting pull requests :) You can read more about it [here](CONTRIBUTING.md)
-
-:books: &nbsp;To learn more about DevOps and SRE, check the resources in [devops-resources](https://github.com/bregman-arie/devops-resources) repository
+:pencil: &nbsp;You can add more questions and exercises by submitting pull requests :) Read about contribution guidelines [here](CONTRIBUTING.md)
 
 ****
 
@@ -31,7 +29,7 @@
     <td align="center"><a href="#terraform"><img src="images/terraform.png" width="70px;" height="75px;" alt="Terraform"/><br /><b>Terraform</b></a></td>
   </tr>
   <tr>
-    <td align="center"><a href="#coding"><img src="images/coding.png" width="75px;" height="75px;" alt="coding"/><br /><b>Coding</b></a></td>
+    <td align="center"><a href="#programming"><img src="images/programming.png" width="75px;" height="75px;" alt="programming"/><br /><b>Programming</b></a></td>
     <td align="center"><a href="#python"><img src="images/python.png" width="80px;" height="75px;" alt="Python"/><br /><b>Python</b></a></td>
     <td align="center"><a href="#go"><img src="images/Go.png" width="75px;" height="75px;" alt="go"/><br /><b>Go</b></a></td>
     <td align="center"><a href="#shell-scripting"><img src="images/bash.png" width="70px;" height="75px;" alt="Bash"/><br /><b>Shell Scripting</b></a></td>
@@ -122,6 +120,8 @@ Google:
 * Not allowing someone to push to production on Friday ;)
 </b></details>
 
+#### CI/CD
+
 <details>
 <summary>What is Continuous Integration?</summary><br><b>
 
@@ -131,9 +131,18 @@ Each piece of code (change/patch) is verified, to make the change is safe to mer
 </b></details>
 
 <details>
+<summary>What is Continuous Deployment?</summary><br><b>
+
+A development strategy used by developers to release software automatically into production where any code commit must pass through an automated testing phase. Only when this is successful is the release considered production worthy. This eliminates any human interaction and should be implemented only after production-ready pipelines have been set with real-time monitoring and reporting of deployed assets. If any issues are detected in production it should be easy to rollback to previous working state.
+
+For more info please read [here](https://www.atlassian.com/continuous-delivery/continuous-deployment)
+</b></details>
+
+
+<details>
 <summary>Can you describe an example of a CI (and/or CD) process starting the moment a developer submitted a change/PR to a repository?</summary><br><b>
 
-There are many answers for such question as CI processes vary depending on the technologies used and the type of the project to where the change was submitted.
+There are many answers for such a question, as CI processes vary, depending on the technologies used and the type of the project to where the change was submitted.
 Such processes can include one or more of the following stages:
 
 * Compile 
@@ -143,19 +152,11 @@ Such processes can include one or more of the following stages:
 * Update
 * Test
 
-For example:
+An example of one possible answer:
 
 A developer submitted a pull request to a project. The PR (pull request) triggered two jobs (or one combined job). One job for running lint test on the change and the second job for building a package which includes the submitted change, and running multiple api/scenario tests using that package. Once all tests passed and the change was approved by a maintainer/core, it's merged/pushed to the repository. If some of the tests failed, the change will not be allowed to merged/pushed to the repository.
 
-A complete different CI process can describe how a developer pushes code to a repository, a workflow then triggered to build a container image and push it to the registry. Once in the registry, the k8s cluster is applied with the new changes.
-</b></details>
-
-<details>
-<summary>What is Continuous Deployment?</summary><br><b>
-
-A development strategy used by developers to release software automatically into production where any code commit must pass through an automated testing phase. Only when this is successful is the release considered production worthy. This eliminates any human interaction and should be implemented only after production-ready pipelines have been set with real-time monitoring and reporting of deployed assets. If any issues are detected in production it should be easy to rollback to previous working state.
-
-For more info please read [here](https://www.atlassian.com/continuous-delivery/continuous-deployment)
+A complete different answer or CI process, can describe how a developer pushes code to a repository, a workflow then triggered to build a container image and push it to the registry. Once in the registry, the k8s cluster is applied with the new changes.
 </b></details>
 
 <details>
@@ -167,13 +168,6 @@ For more info please read [here](https://www.atlassian.com/continuous-delivery/c
 </b></details>
 
 <details>
-<summary>Would you prefer a "configuration->deployment" model or "deployment->configuration"? Why?</summary><br><b>
-
-Both have advantages and disadvantages.
-With "configuration->deployment" model for example, where you build one image to be used by multiple deployments, there is less chance of deployments being different from one another, so it has a clear advantage of a consistent environment.
-</b></details>
-
-<details>
 <summary>What CI/CD best practices are you familiar with? Or what do you consider as CI/CD best practice?</summary><br><b>
 
 * Automated process of building, testing and deploying software
@@ -182,17 +176,28 @@ With "configuration->deployment" model for example, where you build one image to
 </b></details>
 
 <details>
+<summary>You are given a pipeline and a pool with 3 workers: virtual machine, baremetal and a container. How will you decide on which one of them to run the pipeline?</summary><br><b>
+</b></details>
+
+<details>
 <summary>Where do you store CI/CD pipelines? Why?</summary><br><b>
 
 There are multiple approaches as to where to store the CI/CD pipeline definitions:
 
-1. App Repository - store them in the same repository of the application they are building or testing
-2. Central Repository - store all organization's/project's CI/CD pipelines in one separate repository
-2. CI repo for every app repo - you separate CI related code from app code but you don't put everything in one place
+1. App Repository - store them in the same repository of the application they are building or testing (perhaps the most popular one)
+2. Central Repository - store all organization's/project's CI/CD pipelines in one separate repository (perhaps the best approach when multiple teams test the same set of projects and they end up having many pipelines)
+3. CI repo for every app repo - you separate CI related code from app code but you don't put everything in one place (perhaps the worst option due to the maintenance)
 </b></details>
 
 <details>
-<summary>What systems and/or tools are you using for the following areas/tasks? Why?
+<summary>Would you prefer a "configuration->deployment" model or "deployment->configuration"? Why?</summary><br><b>
+
+Both have advantages and disadvantages.
+With "configuration->deployment" model for example, where you build one image to be used by multiple deployments, there is less chance of deployments being different from one another, so it has a clear advantage of a consistent environment.
+</b></details>
+
+<details>
+<summary>What tooling are you using for the following areas/tasks? Why?
 
   * CI/CD
   * Provisioning infrastructure
@@ -279,7 +284,7 @@ Read more [here](https://en.wikipedia.org/wiki/Software_repository)
 <details>
 <summary>What is caching? How does it works? Why is it important?</summary><br><b>
 
-	Caching is fast access to frequently used resources which are computationally expensive or IO intensive and do not change often. There can be several layers of cache that can start from CPU caches to distributed cache systems. Common ones are in memory caching and distributed caching. <br/> Caches are typically data structures that contains some data, such as a hashtable or dictionary. However, any data structure can provide caching capabilities, like set, sorted set, sorted dictionary etc. While, caching is used in many applications, they can create subtle bugs if not implemented correctly or used correctly. For example,cache invalidation, expiration or updating is usually quite challenging and hard.
+Caching is fast access to frequently used resources which are computationally expensive or IO intensive and do not change often. There can be several layers of cache that can start from CPU caches to distributed cache systems. Common ones are in memory caching and distributed caching. <br/> Caches are typically data structures that contains some data, such as a hashtable or dictionary. However, any data structure can provide caching capabilities, like set, sorted set, sorted dictionary etc. While, caching is used in many applications, they can create subtle bugs if not implemented correctly or used correctly. For example,cache invalidation, expiration or updating is usually quite challenging and hard.
 </b></details>
 
 <details>
@@ -425,6 +430,20 @@ This situation might lead to bugs which hard to identify and reproduce.
 </b></details>
 
 <details>
+<summary>Explain Declarative and Procedural styles. The technologies you are familiar with (or using) are using procedural or declarative style?</summary><br><b>
+
+Declarative - You write code that specifies the desired end state
+Procedural - You describe the steps to get to the desired end state
+
+Declarative Tools - Terraform, Puppet, CloudFormation
+Procedural Tools - Ansible, Chef
+
+To better emphasize the difference, consider creating two virtual instances/servers.
+In declarative style, you would specify two servers and the tool will figure out how to reach that state.
+In procedural style, you need to specify the steps to reach the end state of two instances/servers - for example, create a loop and in each iteration of the loop create one instance (running the loop twice of course).
+</b></details>
+
+<details>
 <summary>Do you have experience with testing cross-projects changes? (aka cross-dependency)</summary><br><b>
 
 Note: cross-dependency is when you have two or more changes to separate projects and you would like to test them in mutual build instead of testing each change separately.
@@ -443,9 +462,8 @@ Note: cross-dependency is when you have two or more changes to separate projects
 <details>
 <summary>What SRE team is responsible for?</summary><br><b>
 
-One can argue whether it's per company definition or a global one but at least according to a large companies, like Google for example, the SRE team is responsible for availability, latency, performance, efficiency, change management, monitoring, emergency response, and capacity planning of their services
+Google: "the SRE team is responsible for availability, latency, performance, efficiency, change management, monitoring, emergency response, and capacity planning of their services"
 </b></details>
-
 
 ## Jenkins
 
@@ -469,6 +487,13 @@ Jenkins integrates development life-cycle processes of all kinds, including buil
 
 <details>
 <summary>What are the limitations or disadvantages of Jenkins?</summary><br><b>
+
+This might be considered to be an opinionated answer:
+
+* Old fashioned dashboards with not many options to customize it
+* Containers readiness (this has improved with Jenkins X)
+* By itself, it doesn't have many features. On the other hand, there many plugins created by the community to expand its abilities
+* Managing Jenkins and its piplines as a code can be one hell of a nightmare
 </b></details>
 
 <details>
@@ -477,8 +502,13 @@ Jenkins integrates development life-cycle processes of all kinds, including buil
   * Job
   * Build
   * Plugin
-  * Slave/Node
+  * Slave/Node/Worker
   * Executor</summary><br><b>
+
+  * Job is an automation definition = what and where to execute once the user clicks on "build" 
+  * Build is a running instance of a job. You can have one or more builds at any given point of time (unless limited by confiugration)
+  * A worker is the machine/instance on which the build is running. When a build starts, it "acquires" a worker out of a pool to run on it.
+  * An executor is variable of the worker, defining how many builds can run on that worker in parallel. An executor value of 3 means, that 3 builds can run at any point on that executor (not necessarily of the same job. Any builds)
 </b></details>
 
 <details>
@@ -486,7 +516,7 @@ Jenkins integrates development life-cycle processes of all kinds, including buil
 </b></details>
 
 <details>
-<summary>Explain CI/CD and how you implemented it in Jenkins</summary><br><b>
+<summary>Have you used Jenkins for CI or CD processes? Can you describe them?</summary><br><b>
 </b></details>
 
 <details>
@@ -494,19 +524,30 @@ Jenkins integrates development life-cycle processes of all kinds, including buil
 </b></details>
 
 <details>
-<summary>How did you report build results to users? What ways are you familiar with for reporting results?</summary><br><b>
+<summary>How did you report build results to users? What ways are there to report the results?</summary><br><b>
+
+You can report via:
+  * Emails
+  * Messaging apps
+  * Dashboards
+
+Each has its own disadvantages and advantages. Emails for example, if sent too often, can be eventually disregarded or ignored.
 </b></details>
 
 <details>
 <summary>You need to run unit tests every time a change submitted to a given project. Describe in details how your pipeline would look like and what will be executed in each stage</summary><br><b>
+
+The pipelines will have multiple stages:
+
+  * Clone the project
+  * Install test dependencies (for example, if I need tox package to run the tests, I will install it in this stage)
+  * Run unit tests
+  * (Optional) report results (For example an email to the users)
+  * Archive the relevant logs/files
 </b></details>
 
 <details>
 <summary>How to secure Jenkins?</summary><br><b>
-</b></details>
-
-<details>
-<summary>Can you describe some of Jenkins best practices?</summary><br><b>
 </b></details>
 
 <details>
@@ -520,11 +561,15 @@ You can describe the UI way to add new nodes but better to explain how to do in 
 </b></details>
 
 <details>
+<summary>Whenever a build fails, you would like to notify the team owning the job regarding the failure and provide failure reason. How would you do that?</summary><br><b>
+</b></details>
+
+<details>
 <summary>There are four teams in your organization. How to prioritize the builds of each team? So the jobs of team x will always run before team y for example</summary><br><b>
 </b></details>
 
 <details>
-<summary>If you are managing a dozen of jobs, you can probably use the Jenkins UI. How do you manage the creation and deletion of hundreds of jobs every week/month?</summary><br><b>
+<summary>If you are managing a dozen of jobs, you can probably use the Jenkins UI. But how do you manage the creation and deletion of hundreds of jobs every week/month?</summary><br><b>
 </b></details>
 
 <details>
@@ -546,14 +591,6 @@ You can describe the UI way to add new nodes but better to explain how to do in 
 
 <details>
 <summary>Have you written Jenkins scripts? If yes, what for and how they work?</summary><br><b>
-</b></details>
-
-#### Jenkins Integration
-
-<details>
-<summary>How would you collect logs from Jenkins builds (not master) and display them to user via Kibana? Describe the process, components, etc.<br>
-<img src="images/jenkins/jenkins-to-kibana.png" width="621x;" height="171px;"/>
-</summary><br><b>
 </b></details>
 
 ## Cloud
@@ -1384,7 +1421,7 @@ Read more about it [here](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec
 Allows you to connect your corporate network to AWS network.
 </b></details>
 
-#### Identify the service or tool
+#### AWS - Identify the service or tool
 
 <details>
 <summary>What would you use for automating code/software deployments?</summary><br><b>
@@ -2201,6 +2238,36 @@ There is also "Management Plane" which refers to monitoring and management funct
 
 <details>
 <summary>Explain OSPF</summary><br><b>
+</b></details>
+
+<details>
+<summary>What is latency?</summary><br><b>
+</b></details>
+
+<details>
+<summary>What is bandwidth?</summary><br><b>
+</b></details>
+
+<details>
+<summary>What is throughput?</summary><br><b>
+</b></details>
+
+<details>
+<summary>When performing a search query, what is more important, latency or throughput? And how to assure that what managing global infrastructure?</summary><br><b>
+
+Latency. To have a good latency, a search query should be forwarded to the closest datacenter.
+</b></details>
+
+<details>
+<summary>When uploading a video, what is more important, latency or throughput? And how to assure that?</summary><br><b>
+
+Throughput. To have a good throughput, the upload stream should be routed to an underutilized link.
+</b></details>
+
+<details>
+<summary>What other considerations (except latency and throughput) are there when forwarding requests?</summary><br><b>
+
+* Keep caches updated (which means the request could be forwarded not to the closest datacenter)
 </b></details>
 
 <details>
@@ -3045,6 +3112,7 @@ If you mention at any point ps command with arugments, be familiar with what the
 
 <details>
 <summary>What is the init process?</summary><br><b>
+It is the first process executed by the kernel during the booting of a system. It is a daemon process which runs till the system is shutdown. That is why, it is the parent of all the processes
 </b></details>
 
 <details>
@@ -3314,7 +3382,15 @@ Package managers allow you to manage packages lifecycle as in installing, removi
 In addition, you can specify in a spec how a certain package will be installed - where to copy the files, which commands to run prior to the installation, post the installation, etc.
 </b></details>
 
-##### Applications and Services
+#### Linux DNF
+
+<details>
+<summary>How to look for a package that provides the command /usr/bin/git? (the package isn't necessarily installed)</summary><br><b>
+
+dnf provides /usr/bin/git
+</b></details>
+
+##### Linux Applications and Services
 
 <details>
 <summary>What can you find in /etc/services?</summary><br><b>
@@ -3827,8 +3903,8 @@ It would support the following:
 * Program's bytes are loaded into the memory or more specifically, into the address space of the process.
 * Memory is allocated for program's stack (aka run-time stack). The stack also initialized by the OS with data like argv, argc and parameters to main()
 * Memory is allocated for program's heap which is required for data structures like linked lists and hash tables
-* I/O initialization tasks like in Unix/Linux based systems where each process has 3 file descriptors (input, output and error)
-* OS is running the program, strarting from main()
+* I/O initialization tasks are performed, like in Unix/Linux based systems where each process has 3 file descriptors (input, output and error)
+* OS is running the program, starting from main()
 
 Note: The loading of the program's code into the memory done lazily which means the OS loads only partial relevant pieces required for the process to run and not the entire code.
 </b></details>
@@ -3918,11 +3994,22 @@ Ansible is:
 </b></details>
 
 <details>
+<summary>True or False? Ansible follows the mutable infrastructure paradigm</summary><br><b>
+
+True.
+</b></details>
+
+<details>
+<summary>True or False? Ansible uses declarative style to describe the expected end state</summary><br><b>
+False. It uses a procedural style.
+</b></details>
+
+<details>
 <summary>What kind of automation you wouldn't do with Ansible and why?</summary><br><b>
 
-While it's possible to provision resources with Ansible it might not be the best choice for doing so as Ansible doesn't
-save state by default. So a task that creates 5 instances for example, when executed again will create additional 5 instances (unless
-additional check is implemented).
+While it's possible to provision resources with Ansible, some prefer to use tools that follow immutable infrastructure paradigm.
+Ansible doesn't saves state by default. So a task that creates 5 instances for example, when executed again will create additional 5 instances (unless
+additional check is implemented) while other tools will check if 5 instances exist. If only 4 exist, additional instance will be created.
 </b></details>
 
 <details>
@@ -4304,6 +4391,17 @@ The benefits of Terraform over the other tools:
 
   * It follows the immutable infrastructure approach which has benefits like avoiding a configuration drift over time
   * Ansible and Puppet are more procedural (you mention what to execute in each step) and Terraform is declarative since you describe the overall desired state and not per resource or task. You can give the example of going from 1 to 2 servers in each tool. In Terraform you specify 2, in Ansible and puppet you have to only provision 1 additional server so you need to explicitly make sure you provision only another one server.
+</b></details>
+
+<details>
+<summary>True or False? Terraform follows the mutable infrastructure paradigm</summary><br><b>
+
+False. Terraform follows immutable infrastructure paradigm.
+</b></details>
+
+<details>
+<summary>True or False? Terraform uses declarative style to describe the expected end state</summary><br><b>
+True
 </b></details>
 
 <details>
@@ -4715,6 +4813,8 @@ At a minimum, a cluster contains a worker node and a master node."
 Read more [here](https://www.redhat.com/en/topics/containers/what-is-a-kubernetes-cluster)
 </b></details>
 
+#### Kubernetes Nodes
+
 <details>
 <summary>What is a Node?</summary><br><b>
 
@@ -4739,12 +4839,39 @@ The workers are the nodes which run the applications and workloads.
 </b></details>
 
 <details>
-<summary>True or False? Every cluster must have 0 or more master nodes and 1 or more workers</summary><br><b>
+<summary>What is kubectl?</summary><br><b>
+</b></details>
 
-False. A Kubernetes cluster consists of at least 1 master and 0 or more workers.
+<details>
+<summary>Which command you run to view your nodes?</code></summary><br><b>
+
+`kubectl get nodes`
+</b></details>
+
+<details>
+<summary>True or False? Every cluster must have 0 or more master nodes and at least on e worker</summary><br><b>
+
+False. A Kubernetes cluster consists of at least 1 master and can have 0 workers (although that wouldn't be very useful...)
 </b></details> 
 
-#### Pod
+<details>
+<summary>What are the components of the master node?</summary><br><b>
+
+  * API Server - the Kubernetes API. All cluster components communicate through it
+  * Scheduler - assigns an application with a worker node it can run on
+  * Controller Manager - cluster maintenance (replications, node failures, etc.)
+  * etcd - stores cluster configuration
+</b></details>
+
+<details>
+<summary>What are the components of a worker node?</summary><br><b>
+
+  * Kubelet - an agent responsible for node communication with the master.
+  * Kube-proxy - load balancing traffic between app components
+  * Container runtime - the engine runs the containers (Podman, Docker, ...)
+</b></details>
+
+#### Kubernetes Pod
 
 <details>
 <summary>Explain what is a pod</summary><br><b>
@@ -4763,225 +4890,21 @@ It means they would eventually die and pods are unable to heal so it is recommen
 </b></details>
 
 <details>
-<summary>What is a service in Kubernetes?</summary><br><b>
-
-A permanent IP address that can be attached to a pod.
-Even if connected, their lifecycles aren't connected.
-</b></details>
-
-<details>
-<summary>What is the difference between an external and an internal service?</summary><br><b>
-</b></details>
-
-<details>
-<summary>What is Ingress?</summary><br><b>
-</b></details>
-
-<details>
-<summary>What are the components of the master node?</summary><br><b>
-
-  * API Server - the Kubernetes API. All cluster components communicate through it
-  * Scheduler - assigns an application with a worker node it can run on
-  * Controller Manager - cluster maintenance (replications, node failures, etc.)
-  * etcd - stores cluster configuration
-</b></details>
-
-<details>
-<summary>True or False? The API server is the only component which communicates directly with etcd</summary><br><b>
-
-True
-</b></details>
-
-<details>
-<summary>What are the components of a worker node?</summary><br><b>
-
-  * Kubelet - an agent responsible for node communication with the master.
-  * Kube-proxy - load balancing traffic between app components
-  * Container runtime - the engine runs the containers (Podman, Docker, ...)
-</b></details>
-
-<details>
-<summary>What is kubectl?</summary><br><b>
-</b></details>
-
-<details>
-<summary>What are namespaces? Why would someone use namespaces?</summary><br><b>
-</b></details>
-
-<details>
-<summary>True or False? When a namespace is deleted all resources in that namespace are not deleted but moved to another default namespace</summary><br><b>
-
-False. When a namespace is deleted, the resources in that namespace are deleted as well.
-</b></details>
-
-<details>
-<summary>What special namespaces are there?</summary><br><b>
-
-* default
-* kube-system
-* kube-public
-</b></details>
-
-<details>
-<summary>What Kube Proxy does?</summary><br><b>
-</b></details>
-
-<details>
-<summary>What is etcd?</summary><br><b>
-</b></details>
-
-<details>
-<summary>True or False? application data is not stored in etcd</summary><br><b>
-
-True
-</b></details>
-
-<details>
-<summary>What "Resources Quotas" are used for and how?</summary><br><b>
-</b></details>
-
-<details>
-<summary>Explain ConfigMap</summary><br><b>
-
-Separate configuration from pods.
-It's good for cases where you might need to change configuration at some point but you don't want to restart the application or rebuild the image so you create a ConfigMap and connect it to a pod but externally to the pod.
-</b></details>
-
-<details>
-<summary>How to use ConfigMaps?</summary><br><b>
-
-1. Create it (from key&value, a file or an env file)
-2. Attach it. Mount a configmap as a volume
-</b></details>
-
-<details>
-<summary>Trur or False? Sensitive data, like credentials, should be stored in a ConfigMap</summary><br><b>
-
-False. Use secret.
-</b></details>
-
-<details>
-<summary>Explain "Horizontal Pod Autoscaler"</summary><br><b>
-
-Scale the number of pods automatically on observed CPU utilization.
-</b></details>
-
-<details>
-<summary>When you delete a pod, is it deleted instantly? (a moment after running the command)</summary><br><b>
-</b></details>
-
-<details>
-<summary>How to delete a pod instantly?</summary><br><b>
-
-Use "--grace-period=0 --force"
-</b></details>
-
-<details>
-<summary>Explain the "Service" concept</summary><br><b>
-
-"An abstract way to expose an application running on a set of Pods as a network service." - more [here](https://kubernetes.io/docs/concepts/services-networking/service)
-</b></details>
-
-<details>
-<summary>What services types are there?</summary><br><b>
-
-* ClusterIP
-* NodePort
-* LoadBalancer
-* ExternalName
-
-More on this topic [here](https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services-service-types)
-</b></details>
-
-<details>
-<summary>What services types are there?</summary><br><b>
-</b></details>
-
-<details>
-<summary>Explain Liveness probe</summary><br><b>
-</b></details>
-
-<details>
-<summary>Explain Readiness probe</summary><br><b>
-</b></details>
-
-<details>
-<summary>What does being cloud-native mean?</summary><br><b>
-</b></details>
-
-<details>
-<summary>Explain the pet and cattle approach of infrastructure with respect to kubernetes</summary><br><b>
-</b></details>
-
-<details>
-<summary>Describe how you one proceeds to run a containerised web app in K8s, which should be reachable from a public URL.</summary><br><b>
-</b></details>
-
-<details>
-<summary>How would you troubleshoot your cluster if some applications are not reachable any more?</summary><br><b>
-</b></details>
-
-<details>
-<summary>Describe what CustomResourceDefinitions there are in the Kubernetes world? What they can be used for?</summary><br><b>
-</b></details>
-
-<details>
-<summary>What is RBAC?</summary><br><b>
-</b></details>
-
-#### Scheduling
-
-<details>
-<summary> How does scheduling work in kubernetes?</summary><br><b>
-
-The control plane component kube-scheduler asks the following questions,
-1. What to schedule? It tries to understand the pod-definition specifications
-2. Which node to schedule? It tries to determine the best node with available resources to spin a pod
-3. Binds the Pod to a given node
-
-View more [here](https://www.youtube.com/watch?v=rDCWxkvPlAw)
-</b></details>
-
-<details>
-<summary> How are labels and selectors used?</summary><br><b>
-</b></details>
-
-#### Kubernetes Commands
-
-<details>
-<summary>Which command you run to view your nodes?</code></summary><br><b>
-
-`kubectl get nodes`
-</b></details>
-
-<details>
 <summary>Which command you run to view all pods running on all namespaces?</code></summary><br><b>
 
 `kubectl get pods --all-namespaces`
 </b></details>
 
 <details>
-<summary>How to list all namespaces?</code></summary><br><b>
+<summary>How to delete a pod?</code></summary><br><b>
 
-`kubectl get namespaces`
+`kubectl delete pod pod_name`
 </b></details>
 
-<details>
-<summary>How to view the current namespace?</code></summary><br><b>
-
-kubectl config view | grep namespace
-</b></details>
+#### Kubernetes Deployment
 
 <details>
-<summary>How to switch to another namespace?</code></summary><br><b>
-
-kubectl config set-context --current --namespace=some-namespace
-</b></details>
-
-<details>
-<summary>How to create a resource quota?</code></summary><br><b>
-
-kubectl create quota some-quota --hard-cpu=2,pods=2
+<summary>What is a "Deployment" in Kubernetes?</summary><br><b>
 </b></details>
 
 <details>
@@ -5002,15 +4925,473 @@ EOF
 </b></details>
 
 <details>
-<summary>How to print information on a specific pod?</code></summary><br><b>
+<summary>How to edit a deployment?</code></summary><br><b>
 
-`kubectl describe pod pod_name`
+kubectl edit deployment some-deployment
 </b></details>
 
 <details>
-<summary>How to delete a pod?</code></summary><br><b>
+<summary>What happens after you edit a deployment and change the image?</summary><br><b>
 
-`kubectl delete pod pod_name`
+The pod will terminate and another, new pod, will be created.
+
+Also, when looking at the replicaset, you'll see the old replica doesn't have any pods and a new replicaset is created.
+</b></details>
+
+<details>
+<summary>How to delete a deployment?</summary><br><b>
+
+One way is by specifying the deployment name: `kubectl delete deployment [deployment_name]`
+Another way is using the deployment configuration file: `kubectl delete -f deployment.yaml`
+</b></details>
+
+<details>
+<summary>What happens when you delete a deployment?</summary><br><b>
+
+The pod related to the deployment will terminate and the replicaset will be removed.
+</b></details>
+
+#### Kubernetes Service
+
+<details>
+<summary>What is a Service in Kubernetes?</summary><br><b>
+"An abstract way to expose an application running on a set of Pods as a network service." - more [here](https://kubernetes.io/docs/concepts/services-networking/service)
+
+Note: Even if connected to a pod, their lifecycles aren't connected.
+</b></details>
+
+<details>
+<summary>What Service types are there?</summary><br><b>
+
+* ClusterIP
+* NodePort
+* LoadBalancer
+* ExternalName
+
+More on this topic [here](https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services-service-types)
+</b></details>
+
+<details>
+<summary>How to get information on a certain service?</summary><br><b>
+
+kubctl describe service [service_name]
+</b></details>
+
+<details>
+<summary>How to verify that a certain service forwards the requests to a pod</summary><br><b>
+
+Run `kubectl describe service` and if the IPs from "Endpoints" match any IPs from the output of `kubectl get pod -o wide`
+</b></details>
+
+<details>
+<summary>What is the difference between an external and an internal service?</summary><br><b>
+</b></details>
+
+<details>
+<summary>How to turn the following service into an external one?
+
+```
+spec:
+  selector:
+    app: some-app
+  ports:
+    - protocol: TCP
+      port: 8081
+      targetPort: 8081
+```
+</summary><br><b>
+
+Adding `type: LoadBalancer` and `nodePort`
+
+```
+spec:
+  selector:
+    app: some-app
+  type: LoadBalancer
+  ports:
+    - protocol: TCP
+      port: 8081
+      targetPort: 8081
+      nodePort: 32412
+```
+</b></details>
+
+<details>
+<summary>What would you use to route traffic from outside the Kubernetes cluster to services within a cluster?</summary><br><b>
+
+Ingress
+</b></details>
+
+#### Kubernetes Ingress
+
+<details>
+<summary>What is Ingress?</summary><br><b>
+
+From Kubernetes docs: "Ingress exposes HTTP and HTTPS routes from outside the cluster to services within the cluster. Traffic routing is controlled by rules defined on the Ingress resource."
+
+Read more [here](https://kubernetes.io/docs/concepts/services-networking/ingress/)
+</b></details>
+
+<details>
+<summary>Complete the following configuration file to make it Ingress
+
+```
+metadata:
+  name: someapp-ingress
+spec:
+```
+</summary><br><b>
+There are several ways to answer this question.
+
+```
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: someapp-ingress
+spec:
+  rules:
+  - host: my.host
+    http:
+      paths:
+      - backend:
+          serviceName: someapp-internal-service
+          servicePort: 8080
+```
+</b></details>
+
+<details>
+<summary>Explain the meaning of "http", "host" and "backend" directives
+
+```
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: someapp-ingress
+spec:
+  rules:
+  - host: my.host
+    http:
+      paths:
+      - backend:
+          serviceName: someapp-internal-service
+          servicePort: 8080
+```
+</summary><br><b>
+
+host is the entry point of the cluster so basically a valid domain address that maps to cluster's node IP address<br>
+the http line used for specifying that incoming requests will be forwarded to the internal service using http.<br>
+backend is referencing the internal service (serviceName is the name under metadata and servicePort is the port under the ports section).
+</b></details>
+
+<details>
+<summary>What is Ingress Controller?</summary><br><b>
+
+An implementation for Ingress. It's basically another pod (or set of pods) that does evaluates and processes Ingress rules and this it manages all the redirections. 
+
+There are multiple Ingress Controller implementations (the one from Kubernetes is Kubernetes Nginx Ingress Controller).
+</b></details>
+
+<details>
+<summary>What are some use cases for using Ingress?</summary><br><b>
+
+* Multiple sub-domains (multiple host entries, each with its own service)
+* One domain with multiple services (multiple paths where each one is mapped to a different service/application)
+</b></details>
+
+<details>
+<summary>How to list Ingress in your namespace?</summary><br><b>
+
+kubectl get ingress
+</b></details>
+
+<details>
+<summary>What is Ingress Default Backend?</summary><br><b>
+
+It specifies what do with an incoming request to the Kubernetes cluster that isn't mapped to any backend (= no rule to for mapping the request to a service). If the default backend service isn't defined, it's recommended to define so users still see some kind of message instead of nothing or unclear error.
+</b></details>
+
+<details>
+<summary>How to configure a default backend?</summary><br><b>
+
+Create Service resource that specifies the name of the default backend as reflected in `kubectl desrcibe ingress ...` and the port under the ports section.
+</b></details>
+
+<details>
+<summary>How to configure TLS with Ingress?</summary><br><b>
+
+Add tls and secretName entries.
+
+```
+spec:
+  tls:
+  - hosts:
+    - some_app.com
+    secretName: someapp-secret-tls
+````
+</b></details>
+
+<details>
+<summary>True or False? When configuring Ingress with TLS, the Secret component must be in the same namespace as the Ingress component</summary><br><b>
+
+True
+</b></details>
+
+#### Kubernetes Configuration File
+
+<details>
+<summary>Which parts a configuration file has?</summary><br><b>
+
+It has three main parts:
+1. Metadata
+2. Specification
+3. Status (this automatically generated and added by Kubernetes)
+</b></details>
+
+<details>
+<summary>What is the format of a configuration file?</summary><br><b>
+
+YAML
+</b></details>
+
+<details>
+<summary>How to get latest configuration of a deployment?</summary><br><b>
+
+`kubectl get deployment [deployment_name] -o yaml`
+</b></details>
+
+<details>
+<summary>Where Kubernetes gets the status data (which is added to the configuration file) from?</summary><br><b>
+
+etcd
+</b></details>
+
+#### Kubernetes etcd
+
+<details>
+<summary>What is etcd?</summary><br><b>
+</b></details>
+
+<details>
+<summary>True or False? Etcd holds the current status of any kubernetes component</summary><br><b>
+
+True
+</b></details>
+
+<details>
+<summary>True or False? The API server is the only component which communicates directly with etcd</summary><br><b>
+
+True
+</b></details>
+
+<details>
+<summary>True or False? application data is not stored in etcd</summary><br><b>
+
+True
+</b></details>
+
+#### Kubernetes Namespaces
+
+<details>
+<summary>What are namespaces?</summary><br><b>
+
+Namespaces allow you split your cluster into virtual clusters where you can group your applications in a way that makes sense and is completely separated from the other groups (so you can for example create an app with the same name in two different namespaces)
+</b></details>
+
+<details>
+<summary>Why to use namespaces? What is the problem with using one default namespace?</summary><br><b>
+
+When using the default namespace alone, it becomes hard over time to get an overview of all the applications you manage in your cluster. Namespaces make it easier to organize the applications into groups that makes sense, like a namespace of all the monitoring applications and a namespace for all the security applications, etc.
+
+Namespaces can also be useful for managing Blue/Green environments where each namespace can include a different version of an app and also share resources that are in other namespaces (namespaces like logging, monitoring, etc.).
+
+Another use case for namespaces is one cluster, multiple teams. When multiple teams use the same cluster, they might end up stepping on each others toes. For example if they end up creating an app with the same name it means one of the teams overriden the app of the other team because there can't be too apps in Kubernetes with the same name (in the same namespace).
+</b></details>
+
+<details>
+<summary>True or False? When a namespace is deleted all resources in that namespace are not deleted but moved to another default namespace</summary><br><b>
+
+False. When a namespace is deleted, the resources in that namespace are deleted as well.
+</b></details>
+
+<details>
+<summary>What special namespaces are there by default when creating a Kubernetes cluster?</summary><br><b>
+
+* default
+* kube-system
+* kube-public
+* kube-node-lease
+</b></details>
+
+<details>
+<summary>What can you find in kube-system namespace?</summary><br><b>
+
+* Master and Kubectl processes
+* System processes
+</b></details>
+
+<details>
+<summary>How to list all namespaces?</code></summary><br><b>
+
+`kubectl get namespaces`
+</b></details>
+
+<details>
+<summary>What kube-public contains?</summary><br><b>
+
+* A configmap, which contains cluster information
+* Publicely accessible data
+</b></details>
+
+<details>
+<summary>How to get the name of the current namespace?</code></summary><br><b>
+
+kubectl config view | grep namespace
+</b></details>
+
+<details>
+<summary>What kube-node-lease contains?</summary><br><b>
+
+It holds information on hearbeats of nodes. Each node gets an object which holds information about its availability.
+</b></details>
+
+<details>
+<summary>How to create a namespace?</summary><br><b>
+
+One way is by running `kubectl create namespace [NAMESPACE_NAME]`
+
+Another way is by using namespace configuration file:
+```
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: some-cofngimap
+  namespace: some-namespace
+```
+</b></details>
+
+<details>
+<summary>What default namespace contains?</summary><br><b>
+
+Any resource you create while using Kubernetes.
+</b></details>
+
+<details>
+<summary>True or False? With namespaces you can limit the resources consumed by the users/teams</summary><br><b>
+
+True. With namespaces you can limit CPU, RAM and storage usage.
+</b></details>
+
+<details>
+<summary>How to switch to another namespace? In other words how to change active namespace?</code></summary><br><b>
+
+`kubectl config set-context --current --namespace=some-namespace` and validate with `kubectl config view --minify | grep namespace:`
+
+OR
+
+`kubens some-namespace`
+</b></details>
+
+<details>
+<summary>What is Resource Quota?</code></summary><br><b>
+</b></details>
+
+<details>
+<summary>How to create a Resource Quota?</code></summary><br><b>
+
+kubectl create quota some-quota --hard-cpu=2,pods=2
+</b></details>
+
+<details>
+<summary>Which resources are accessible from different namespaces?</code></summary><br><b>
+
+Service.
+</b></details>
+
+<details>
+<summary>Let's say you have three namespaces: x, y and z. In x namespace you have a ConfigMap referencing service in z namespace. Can you reference the ConfigMap in x namespace from y namespace?</code></summary><br><b>
+
+No, you would have to create separate namespace in y namespace.
+</b></details>
+
+<details>
+<summary>Which service and in which namespace the following file is referencing?
+
+```
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: some-configmap
+data:
+  some_url: samurai.jack
+```
+</summary><br><b>
+
+It's referencing the service "samurai" in the namespace called "jack".
+</b></details>
+
+<details>
+<summary>Which components can't be created within a namespace?</code></summary><br><b>
+
+Volume and Node.
+</b></details>
+
+<details>
+<summary>How to list all the components that bound to a namespace?</code></summary><br><b>
+
+`kubectl api-resources --namespaced=true`
+</b></details>
+
+<details>
+<summary>How to create components in a namespace?</code></summary><br><b>
+
+One way is by specifying --namespace like this: `kubectl apply -f my_component.yaml --namespace=some-namespace`
+Another way is by specifying it in the YAML itself:
+
+```
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: some-configmap
+  namespace: some-namespace
+```
+
+and you can verify with: `kubectl get configmap -n some-namespace`
+</b></details>
+
+#### Kubernetes Commands
+
+<details>
+<summary>What <code>kubectl exec</code> does?</code></summary><br><b>
+</b></details>
+
+<details>
+<summary>What <code>kubectl get all</code> does?</code></summary><br><b>
+</b></details>
+
+<details>
+<summary>What the command <code>kubectl get pod</code> does?</code></summary><br><b>
+</b></details>
+
+<details>
+<summary>How to see all the components of a certain application?</code></summary><br><b>
+
+`kubectl get all | grep [APP_NAME]`
+</b></details>
+
+<details>
+<summary>What <code>kubectl apply -f [file]</code> does?</code></summary><br><b>
+</b></details>
+
+<details>
+<summary>What the command <code>kubectl api-resources --namespaced=false</code> does?</code></summary><br><b>
+
+Lists the components that doesn't bound to a namespace.
+</b></details>
+
+<details>
+<summary>How to print information on a specific pod?</code></summary><br><b>
+
+`kubectl describe pod pod_name`
 </b></details>
 
 <details>
@@ -5058,6 +5439,14 @@ kubectl delete pods --field-selector=status.phase!='Running'
 </b></details>
 
 <details>
+<summary>What <code>kubectl logs [pod-name]</code> command does?</summary><br><b>
+</b></details>
+
+<details>
+<summary>What <code>kubectl describe pod [pod name] does?</code> command does?</summary><br><b>
+</b></details>
+
+<details>
 <summary>How to display the resources usages of pods?</summary><br><b>
 
 kubectl top pod
@@ -5073,10 +5462,6 @@ Outputs the status of each of the control plane components.
 <summary>What is Minikube?</summary><br><b>
 
 Minikube is a lightweight Kubernetes implementation. It create a local virtual machine and deploys a simple (single node) cluster.
-</b></details>
-
-<details>
-<summary>True or False? A pod can manage multiple containers</summary><br><b>
 </b></details>
 
 <details>
@@ -5125,16 +5510,22 @@ False. CPU is a compressible resource while memory is a non compressible resourc
 Explained [here](https://www.youtube.com/watch?v=i9V4oCa5f9I)
 </b></details>
 
-#### Kubernetes Operators
+#### Kubernetes Operator
 
 <details>
 <summary>What is an Operator?</summary><br><b>
 
-Explained [here](https://coreos.com/operators)
+Explained [here](https://kubernetes.io/docs/concepts/extend-kubernetes/operator)
 
-"An Operator is a method of packaging, deploying and managing a Kubernetes application"
+"Operators are software extensions to Kubernetes that make use of custom resources to manage applications and their components. Operators follow Kubernetes principles, notably the control loop."
+</b></details>
 
-There is also this [video tutorial](https://www.youtube.com/watch?v=KBTXBUVNF2I)
+<details>
+<summary>Why do we need Operators?</summary><br><b>
+
+The process of managing stateful applications in Kubernetes isn't as straightforward as managing stateless applications where reaching the desired status and upgrades are both handled the same way for every replica. In stateful applications, upgrading each replica might require different handling due to the stateful nature of the app, each replica might be in a different status. As a result, we often need a human operator to manage stateful applications. Kubernetes Operator is suppose to assist with this.
+
+This also help with automating a standard process on multiple Kubernetes clusters
 </b></details>
 
 <details>
@@ -5145,13 +5536,28 @@ There is also this [video tutorial](https://www.youtube.com/watch?v=KBTXBUVNF2I)
 </b></details>
 
 <details>
+<summary>How Operator works?</summary><br><b>
+
+It uses the control loop used by Kubernetes in general. It watches for changes in the application state. The difference is that is uses a custom control loop.
+In additions.
+
+In addition, it also makes use of CRD's (Custom Resources Definitions) so basically it extends Kubernetes API.
+</b></details>
+
+<details>
+<summary>True or False? Kubernetes Operator used for stateful applications</summary><br><b>
+
+True
+</b></details>
+
+<details>
 <summary>What is the Operator Framework?</summary><br><b>
 
 open source toolkit used to manage k8s native applications, called operators, in an automated and efficient way.
 </b></details>
 
 <details>
-<summary>What components the Operator Framework consists of??</summary><br><b>
+<summary>What components the Operator Framework consists of?</summary><br><b>
 
 1. Operator SDK - allows developers to build operators
 2. Operator Lifecycle Manager - helps to install, update and generally manage the lifecycle of all operators
@@ -5178,10 +5584,6 @@ It includes:
 </b></details>
 
 <details>
-<summary>What is a "Deployment" in Kuberenetes?</summary><br><b>
-</b></details>
-
-<details>
 <summary>Can you use a Deployment for stateful applications?</summary><br><b>
 </b></details>
 
@@ -5189,12 +5591,18 @@ It includes:
 <summary>Explain StatefulSet</summary><br><b>
 </b></details>
 
+#### Kubernetes ReplicaSet
+
 <details>
 <summary>What is the purpose of ReplicaSet?</summary><br><b>
 </b></details>
 
 <details>
 <summary>How a ReplicaSet works?</summary><br><b>
+</b></details>
+
+<details>
+<summary>What happens when a replica dies?</summary><br><b>
 </b></details>
 
 #### Kubernetes Secrets
@@ -5206,21 +5614,87 @@ Secrets let you store and manage sensitive information (passwords, ssh keys, etc
 </b></details>
 
 <details>
-<summary>How to create a secret from a key and value?</summary><br><b>
+<summary>How to create a Secret from a key and value?</summary><br><b>
 
 kubectl create secret generic some-secret --from-literal=password='donttellmypassword'
 </b></details>
 
 <details>
-<summary>How to create a secret from a file?</summary><br><b>
+<summary>How to create a Secret from a file?</summary><br><b>
 
 kubectl create secret generic some-secret --from-file=/some/file.txt
+</b></details>
+
+<details>
+<summary>What <code>type: Opaque</code> in a secret file means? What other types are there?</summary><br><b>
+
+Opaque is the default type used for key-value pairs.
+</b></details>
+
+<details>
+<summary>True or False? storing data in a Secret component makes it automatically secured</summary><br><b>
+
+False. Some known security mechanisms like "encryption" aren't enabled by default.
+</b></details>
+
+<details>
+<summary>What is the problem with the following Secret file:
+
+```
+apiVersion: v1   
+kind: Secret
+metadata:
+    name: some-secret
+type: Opaque
+data:
+    password: mySecretPassword
+```
+</summary><br><b>
+Password isn't encrypted.
+You should run something like this: `echo -n 'mySecretPassword' | base64` and paste the result to the file instead of using plain-text.
+</b></details>
+
+<details>
+<summary>How to create a Secret from a configuration file?</summary><br><b>
+
+`kubectl apply -f some-secret.yaml`
+</b></details>
+
+<details>
+<summary>What the following in Deployment configuration file means? 
+
+```
+spec:
+  containers:
+    - name: USER_PASSWORD
+      valueFrom:
+        secretKeyRef:
+          name: some-secret
+          key: password
+```
+</summary><br><b>
+USER_PASSWORD environment variable will store the value from password key in the secret called "some-secret"
+In other words, you reference a value from a Kubernetes Secret.
 </b></details>
 
 #### Kubernetes Storage
 
 <details>
+<summary>True or False? Kubernetes provides data persistence out of the box, so when you restart a pod, data is saved</summary><br><b>
+
+False
+</b></details>
+
+<details>
 <summary>Explain "Persistent Volumes". Why do we need it?</summary><br><b>
+
+Persistent Volumes allow us to save data so basically they provide storage that doesn't depend on the pod lifecycle.
+</b></details>
+
+<details>
+<summary>True or False? Persistent Volume must be available to all nodes because the pod can restart on any of them</summary><br><b>
+
+True
 </b></details>
 
 <details>
@@ -5269,6 +5743,108 @@ False
 #### Kubernetes Misc
 
 <details>
+<summary>You have one Kubernetes cluster and multiple teams that would like to use it. You would like to limit the resources each team consumes in the cluster. Which Kubernetes concept would you use for that?</summary><br><b>
+
+Namespaces will allow to limit resources and also make sure there are no collisions between teams when working in the cluster (like creating an app with the same name).
+</b></details>
+
+<details>
+<summary>What Kube Proxy does?</summary><br><b>
+</b></details>
+
+<details>
+<summary>What "Resources Quotas" are used for and how?</summary><br><b>
+</b></details>
+
+<details>
+<summary>Explain ConfigMap</summary><br><b>
+
+Separate configuration from pods.
+It's good for cases where you might need to change configuration at some point but you don't want to restart the application or rebuild the image so you create a ConfigMap and connect it to a pod but externally to the pod.
+
+Overall it's good for:
+* Sharing the same configuration between different pods
+* Storing external to the pod configuration
+</b></details>
+
+<details>
+<summary>How to use ConfigMaps?</summary><br><b>
+
+1. Create it (from key&value, a file or an env file)
+2. Attach it. Mount a configmap as a volume
+</b></details>
+
+<details>
+<summary>Trur or False? Sensitive data, like credentials, should be stored in a ConfigMap</summary><br><b>
+
+False. Use secret.
+</b></details>
+
+<details>
+<summary>Explain "Horizontal Pod Autoscaler"</summary><br><b>
+
+Scale the number of pods automatically on observed CPU utilization.
+</b></details>
+
+<details>
+<summary>When you delete a pod, is it deleted instantly? (a moment after running the command)</summary><br><b>
+</b></details>
+
+<details>
+<summary>How to delete a pod instantly?</summary><br><b>
+
+Use "--grace-period=0 --force"
+</b></details>
+
+<details>
+<summary>Explain Liveness probe</summary><br><b>
+</b></details>
+
+<details>
+<summary>Explain Readiness probe</summary><br><b>
+</b></details>
+
+<details>
+<summary>What does being cloud-native mean?</summary><br><b>
+</b></details>
+
+<details>
+<summary>Explain the pet and cattle approach of infrastructure with respect to kubernetes</summary><br><b>
+</b></details>
+
+<details>
+<summary>Describe how you one proceeds to run a containerised web app in K8s, which should be reachable from a public URL.</summary><br><b>
+</b></details>
+
+<details>
+<summary>How would you troubleshoot your cluster if some applications are not reachable any more?</summary><br><b>
+</b></details>
+
+<details>
+<summary>Describe what CustomResourceDefinitions there are in the Kubernetes world? What they can be used for?</summary><br><b>
+</b></details>
+
+<details>
+<summary>What is RBAC?</summary><br><b>
+</b></details>
+
+<details>
+<summary> How does scheduling work in kubernetes?</summary><br><b>
+
+The control plane component kube-scheduler asks the following questions,
+1. What to schedule? It tries to understand the pod-definition specifications
+2. Which node to schedule? It tries to determine the best node with available resources to spin a pod
+3. Binds the Pod to a given node
+
+View more [here](https://www.youtube.com/watch?v=rDCWxkvPlAw)
+</b></details>
+
+<details>
+<summary> How are labels and selectors used?</summary><br><b>
+</b></details>
+
+
+<details>
 <summary>Explain what is CronJob and what is it used for</summary><br><b>
 </b></details>
 
@@ -5278,12 +5854,6 @@ False
 * Guaranteed
 * Burstable
 * BestEffort
-</b></details>
-
-<details>
-<summary>Are there any Kuberenets tools you are using?</summary><br><b>
-
-Kubectx, Kubens, ...
 </b></details>
 
 <details>
@@ -5302,6 +5872,85 @@ Kubectx, Kubens, ...
 
 <details>
 <summary>What is Helm?</summary><br><b>
+
+Package manager for Kubernetes. Basically the ability to package YAML files and distribute them to other users.
+</b></details>
+
+<details>
+<summary>Why do we need Helm? What would be the use case for using it?</summary><br><b>
+
+Sometimes when you would like to deploy a certain application to your cluster, you need to create multiple YAML files / Components like: Secret, Service, ConfigMap, etc. This can be tedious task. So it would make sense to ease the process by introducing something that will allow us to share these bundle of YAMLs every time we would like to add an application to our cluster. This something is called Helm.
+</b></details>
+
+<details>
+<summary>Explain "Helm Charts"</summary><br><b>
+
+Helm Charts is a bundle of YAML files. A bundle that you can consume from repositories or create your own and publish it to the repositories.
+</b></details>
+
+<details>
+<summary>It is said that Helm is also Templating Engine. What does it mean?</summary><br><b>
+
+It is useful for scenarios where you have multiple applications and all are similar, so there are minor differences in their configuration files and most values are the same. With Helm you can define a common blueprint for all of them and the values that are not fixed and change can be placeholders. This is called a template file and it looks similar to the following
+
+```
+apiVersion: v1
+kind: Pod
+metadata:
+  name: {[ .Values.name ]}
+spec:
+  containers:
+  - name: {{ .Values.container.name }}
+  image: {{ .Values.container.image }}
+  port: {{ .Values.container.port }}
+```
+
+The values themselves will in separate file:
+
+```
+name: some-app
+container:
+  name: some-app-container
+  image: some-app-image
+  port: 1991
+```
+</b></details>
+
+<details>
+<summary>What are some use cases for using Helm template file?</summary><br><b>
+
+* Deploy the same application across multiple different environments
+* CI/CD
+</b></details>
+
+<details>
+<summary>Explain the Helm Chart Directory Structure</summary><br><b>
+
+someChart/     -> the name of the chart
+  Chart.yaml   -> meta information on the chart
+  values.yaml  -> values for template files
+  charts/      -> chart dependencies
+  templates/   -> templates files :)
+</b></details>
+
+<details>
+<summary>How do you search for charts?</summary><br><b>
+
+`helm search hub [some_keyword]`
+</b></details>
+
+<details>
+<summary>Is it possible to override values in values.yaml file when installing a chart?</summary><br><b>
+Yes. You can pass another values file:
+`helm install --values=override-values.yaml [CHART_NAME]`
+
+Or directly on the command line: `helm install --set some_key=some_value`
+</b></details>
+
+<details>
+<summary>How Helm supports release management?</summary><br><b>
+
+Helm allows you to upgrade, remove and rollback to previous versions of charts. In version 2 of Helm it was with what is known as "Tiller". In version 3, it was removed due to security concerns.
 </b></details>
 
 #### Submariner
@@ -5329,10 +5978,17 @@ You can learn more [here](https://submariner-io.github.io)
 <summary>What is Istio? What is it used for?</summary><br><b>
 </b></details>
 
-## Coding
+## Programming
 
 <details>
 <summary>What programming language do you prefer to use for DevOps related tasks? Why specifically this one?</summary><br><b>
+</b></details>
+
+<details>
+<summary>What are static typed (or simply typed) languages?</summary><br><b>
+
+In static typed languages the variable type is known at compile-time instead of at run-time.
+Such languages are: C, C++ and Java
 </b></details>
 
 <details>
@@ -5377,6 +6033,14 @@ SOLID is:
 </b></details>
 
 <details>
+<summary>What is YAGNI? What is your opinion on it?</summary><br><b>
+</b></details>
+
+<details>
+<summary>What is DRY? What is your opinion on it?</summary><br><b>
+</b></details>
+
+<details>
 <summary>What are the four pillars of object oriented programming?</summary><br><b>
 </b></details>
 
@@ -5393,11 +6057,21 @@ SOLID is:
 </b></details>
 
 <details>
+<summary>True or False? In Dynamically typed languages the variable type is known at run-time instead of at compile-time</summary><br><b>
+
+True
+</b></details>
+
+<details>
 <summary>Explain what are design patterns and describe three of them in detail</summary><br><b>
 </b></details>
 
 <details>
 <summary>Explain big O notation</summary><br><b>
+</b></details>
+
+<details>
+<summary>What is "Duck Typing"?</summary><br><b>
 </b></details>
 
 <details>
@@ -5476,6 +6150,38 @@ The average performance of the above algorithm is O(log n). Best performance can
 </b></details>
 
 <details>
+<summary>Tell me everything you know about Linked Lists</summary><br><b>
+
+  * A linked list is a data structure
+  * It consists of a collection of nodes. Together these nodes represent a sequence
+  * Useful for use cases where you need to insert or remove an element from any position of the linked list
+  * Some programming languages don't have linked lists as a built-in data type (like Python for example) but it can be easily implemented
+</b></details>
+
+<details>
+<summary>Describe (no need to implement) how to detect a loop in a Linked List</summary><br><b>
+
+There are multiple ways to detect a loop in a linked list. I'll mention three here:
+
+Worst solution:<br>
+Two pointers where one points to the head and one points to the last node. Each time you advance the last pointer by one and check whether the distance between head pointer to the moved pointer is bigger than the last time you measured the same distance (if not, you have a loop).<br>
+The reason it's probably the worst solution, is because time complexity here is O(n^2)
+
+Decent solution:<br>
+
+Create an hash table and start traversing the linked list. Every time you move, check whether the node you moved to is in the hash table. If it isn't, insert it to the hash table. If you do find at any point the node in the hash table, it means you have a loop. When you reach None/Null, it's the end and you can return "no loop" value.
+This one is very easy to implement (just create a hash table, update it and check whether the node is in the hash table every time you move to the next node) but since the auxiliary space is O(n) because you create a hash table then, it's not the best solution
+
+Good solution:<br>
+Instead of creating a hash table to document which nodes in the linked list you have visited, as in the previous solution, you can modify the Linked List (or the Node to be precise) to have a "visited" attribute. Every time you visit a node, you set "visited" to True.<br>
+Time compleixty is O(n) and Auxiliary space is O(1), so it's a good solution but the only problem, is that you have to modify the Linked List.
+
+Best solution:<br>
+You set two pointers to traverse the linked list from the beginning. You move one pointer by one each time and the other pointer by two. If at any point they meet, you have a loop. This solution is also called "Floyd's Cycle-Finding"<br>
+Time complexity is O(n) and auxiliary space is O(1). Perfect :)
+</b></details>
+
+<details>
 <summary>Implement Hash table in any language you would like</summary><br><b>
 </b></details>
 
@@ -5521,8 +6227,6 @@ def find_triplets_sum_to_zero(li):
 5. The python package manager is called PIP "pip installs packages", having more than 200.000 available packages.
 6. Python comes with pip installed and a big standard library that offers the programmer many precooked solutions.
 7. In python **Everything** is an object.
-
-There are many other characteristics but these are the main ones that every python programmer should know.
 ```
 </b></details>
 
@@ -5560,6 +6264,18 @@ The immutable data types are:
 </b></details>
 
 <details>
+<summary>What is a tuple in Python? What is it used for?</summary><br><b>
+
+A tuple is a built-in data type in Python. It's used for storing multiple items in a single variable.
+</b></details>
+
+<details>
+<summary>List, like a tuple, is also used for storing multiple items. What is then, the difference between a tuple and a list?</summary><br><b>
+
+List, as opposed to a tuple, is a mutable data type. It means we can modify it and at items to it.
+</b></details>
+
+<details>
 <summary>What is the result of each of the following?
 
   * 1 > 2
@@ -5567,10 +6283,10 @@ The immutable data types are:
   * 1 == 'one'
   * 2 > 'one'</summary><br><b>
 
-* False
-* True
-* False
-* TypeError
+  * False
+  * True
+  * False
+  * TypeError
 </b></details>
 
 <details>
@@ -5592,7 +6308,7 @@ The immutable data types are:
 <details>
 <summary>What is the result of `bool("")`? What about `bool(" ")`? Explain</summary><br><b>
 
-bool("") -> evaluates to False
+bool("") -> evaluates to False<br>
 bool("  ") -> evaluates to True
 </b></details>
 
@@ -6297,22 +7013,54 @@ with open('file.txt', 'w') as file:
 
 <details>
 <summary>How to print current working directory?</summary><br><b>
+
+    import os
+
+    print(os.getcwd())
+
 </b></details>
 
 <details>
 <summary>Given the path <code>/dir1/dir2/file1</code> print the file name (file1)</summary><br><b>
+
+    import os
+
+    print(os.path.basename('/dir1/dir2/file1'))
+
+    # Another way
+    print(os.path.split('/dir1/dir2/file1')[1])
+
 </b></details>
 
 <details>
-<summary>Given the path <code>/dir1/dir2/file1</code> print the name of the directory where the file resides (dir2)</summary><br><b>
-</b></details>
+<summary>Given the path <code>/dir1/dir2/file1</code>
 
-<details>
-<summary>Given the path <code>/dir1/dir2/file1</code> print the path without the file name (/dir1/dir2)</summary><br><b>
+1. Print the path without the file name (/dir1/dir2)
+2. Print the name of the directory where the file resides (dir2)
+</summary><br><b>
+
+    import os
+
+    ## Part 1.
+    # os.path.dirname gives path removing the end component
+    dirpath = os.path.dirname('/dir1/dir2/file1')
+    print(dirpath)
+
+    ## Part 2.
+    print(os.path.basename(dirpath))
+
 </b></details>
 
 <details>
 <summary>How do you execute shell commands using Python?</summary><br><b>
+</b></details>
+
+<details>
+<summary>How do you join path components? for example <code>/home</code> and <code>luig</code> will result in <code>/home/luigi</code> </summary><br><b>
+</b></details>
+
+<details>
+<summary>How do you remove non-empty directory?</summary><br><b>
 </b></details>
 
 #### Python Regex
@@ -6633,14 +7381,88 @@ What would be the result of is_int(2) and is_int(False)?
 </summary><br><b>
 </b></details>
 
-#### Python Data Structures & Types
+#### Python - Linked List
 
 <details>
-<summary>Implement Stack in Python</summary><br><b>
+<summary>Can you implement a linked list in Python?</summary><br><b>
+
+The reason we need to implement in the first place, it's because a linked list isn't part of Python standard library.<br>
+To implement a linked list, we have to implement two structures: The linked list itself and a node which is used by the linked list.
+
+Let's start with a node. A node has some value (the data it holds) and a pointer to the next node
+
+```
+class Node(object):
+    def __init__(self, data):
+        self.data = data
+        self.next = None
+```
+
+Now the linked list. An empty linked list has nothing but an empty head.
+
+```
+class LinkedList(object):
+    def __init__(self):
+        self.head = None
+```
+
+Now we can start using the linked list
+
+```
+ll = Linkedlist()
+ll.head = Node(1)
+ll.head.next = Node(2)
+ll.head.next.next = Node(3)
+```
+
+What we have is:
+
+----       -----      ----
+| 1 | ->   | 2 |  ->  | 3 |
+----       -----      -----
+
+Usually, more methods are implemented, like a push_head() method where you insert a node at the beginning of the linked list
+
+```
+def push_head(self, value):
+    new_node = Node(value)
+    new_node.next = self.head
+    self.head = new_node
+```
 </b></details>
 
 <details>
-<summary>Implement Hash table in Python</summary><br><b>
+<summary>Add a method to the Linked List class to traverse (print every node's data) the linked list</summary><br><b>
+
+def print_list(self):
+    node = self.head
+    while(node):
+        print(node.data)
+        node = node.next
+</b></details>
+
+<details>
+<summary>Write a method to that will return a boolean based on whether there is a loop in a linked list or not</summary><br><b>
+
+Let's use the Floyd's Cycle-Finding algorithm:
+
+```
+def loop_exists(self):
+    one_step_p = self.head
+    two_steps_p = self.head
+    while(one_step_p and two_steps_p and two_steps_p.next):
+        one_step_p = self.head.next
+        two_step_p = self.head.next.next
+        if (one_step_p == two_steps_p):
+            return True 
+    return False
+```
+</b></details>
+
+#### Python - Stack
+
+<details>
+<summary>Implement Stack in Python</summary><br><b>
 </b></details>
 
 #### Python Testing
@@ -6661,10 +7483,6 @@ PEP8 is a list of coding conventions and style guidelines for Python
     3. Use commas when making a tuple of one element
     4. Use spaces (and not tabs) for indentation
     5. Use 4 spaces per indentation level
-</b></details>
-
-<details>
-<summary>How would you check if two strings are equal? What about booleans?</summary><br><b>
 </b></details>
 
 <details>
@@ -6992,10 +7810,6 @@ a = f()
 </b></details>
 
 <details>
-<summary>Can you implement Linked List in Python?</summary><br><b>
-</b></details>
-
-<details>
 <summary>Can you implement Linux's <code>tail</code> command in Python? Bonus: implement <code>head</code> as well</summary><br><b>
 </b></details>
 
@@ -7005,12 +7819,6 @@ a = f()
 
 <details>
 <summary>How yield works exactly?</summary><br><b>
-</b></details>
-
-##### Python Geeks :)
-
-<details>
-<summary>Tell me something about Python that you think most people don't know</summary><br><b>
 </b></details>
 
 ## Monitoring
@@ -7049,10 +7857,6 @@ Logging<br>
 </b></details>
 
 <details>
-<summary>Have you set up Prometheus? How did you do it? Describe the process</summary><br><b>
-</b></details>
-
-<details>
 <summary>Can you compare Prometheus to other solutions like InfluxDB for example?</summary><br><b>
 </b></details>
 
@@ -7067,7 +7871,7 @@ Logging<br>
   * Push Gateway
   * Alert Manager</summary><br><b>
 
-Prometheus server responsible for scraping the storing the data<br>
+Prometheus server is responsible for scraping and storing the data<br>
 Push gateway is used for short-lived jobs<br>
 Alert manager is responsible for alerts ;)
 </b></details>
@@ -7096,7 +7900,6 @@ Alert manager is responsible for alerts ;)
 <summary>What HA in Prometheus means?</summary><br><b>
 </b></details>
 
-
 <details>
 <summary>How do you join two metrics?</summary><br><b>
 </b></details>
@@ -7112,9 +7915,9 @@ Alert manager is responsible for alerts ;)
 ## Git
 
 <details>
-<summary>How do you know if directory you are in is a git repository?</summary><br><b>
+<summary>How do you know if a certain directory is a git repository?</summary><br><b>
 
-You can check if there is a ".git" directory.
+You can check if there is a ".git" directory inside it.
 </b></details>
 
 <details>
@@ -7172,7 +7975,7 @@ is currently pointing at.
 <details>
 <summary>You would like to move forth commit to the top. How would you achieve that?</summary><br><b>
 
-Using <code>git rebase></code> command
+Using the `git rebase` command
 </b></details>
 
 <details>
@@ -7195,7 +7998,7 @@ This page explains it the best: https://git-scm.com/docs/merge-strategies
 <details>
 <summary>How can you see which changes have done before committing them?</summary><br><b>
 
-<code>git diff</code>
+`git diff```
 </b></details>
 
 <details>
@@ -7634,11 +8437,11 @@ as key-value pair, document-oriented, etc.
 ## OpenShift
 
 <details>
-<summary>What is OpenShift? What experience do you have with OpenShift?</summary><br><b>
+<summary>What is OpenShift?</summary><br><b>
 </b></details>
 
 <details>
-<summary>Can you explain the difference between OpenShift and Kubernetes?</summary><br><b>
+<summary>How OpenShift is related to Kubernetes?</summary><br><b>
 </b></details>
 
 <details>
@@ -7648,23 +8451,41 @@ False. OpenShift is a PaaS (platform as a service) solution.
 </b></details>
 
 <details>
-<summary>Define Pods and explain what are stateful pods</summary><br><b>
+<summary>What would be the best way to run and manage multiple OpenShift environments?</summary><br><b>
+
+Federation
+</b></details>
+
+#### OpenShift Federation
+
+<details>
+<summary>What is OpenShift Federation?</summary><br><b>
+
+Management and deployment of services and workloads accross multiple independent clusters from a single API
 </b></details>
 
 <details>
-<summary>What types of build strategies are you familiar with?</summary><br><b>
+<summary>Explain the following in regards to Federation:
+
+  * Multi Cluster
+  * Federated Cluster
+  * Host Cluster
+  * Member Cluster
+</summary><br><b>
+
+  * Multi Cluster - Multiple clusters deployed independently, not being aware of each other
+  * Federated Cluster - Multiple clusters managed by the OpenShift Federation Control Plane
+  * Host Cluster - The cluster that runs the Federation Control Plane
+  * Member Cluster - Cluster that is part of the Federated Cluster and connected to Federation Control Plane
 </b></details>
 
-<details>
-<summary>Explain what are labels and what they are used for</summary><br><b>
-</b></details>
+#### OpenShift Azure
 
 <details>
-<summary>Explain what are annotations and how they are different from labels</summary><br><b>
-</b></details>
+<summary>What is "OpenShift on Azure" and "Azure Red Hat OpenShift"?</summary><br><b>
 
-<details>
-<summary>Explain what is Downward API</summary><br><b>
+OpenShift on Aazure (OCP) is installed and managed by the customer itself as opposed to Azure Red Hat OpenShift (ARO) which is a managed service by Red Hat and Microsoft.
+Also, OCP is purchased from Red Hat and ARO is purchased from Azure.
 </b></details>
 
 ## Storage
@@ -7696,11 +8517,6 @@ Answer: Magnetic is about 10ms and SSD is somewhere between 0.08 and 0.16ms
 </b></details>
 
 ## Shell Scripting
-
-<details>
-<summary>Tell me about your experience with shell scripting</summary><br><b>
-
-</b></details>
 
 <details>
 <summary>What this line in scripts mean?: <code>#!/bin/bash</code></summary><br><b>
@@ -8386,10 +9202,6 @@ As it does not support stateful applications or sticky sessions, it is suitable 
 ## OpenStack
 
 <details>
-<summary>Tell me about your experience with OpenStack. What do you think are the advantages and disadvantages of OpenStack?</summary><br><b>
-</b></details>
-
-<details>
 <summary>What components/projects of OpenStack are you familiar with?</summary><br><b>
 </b></details>
 
@@ -8620,7 +9432,7 @@ Not by default. Object Storage API limits the maximum to 5GB per object but it c
 False. Two objects can have the same name if they are in different containers.
 </b></details>
 
-#### OpenStack - Swift
+#### OpenStack - Cinder
 
 <details>
 <summary>Explain Cinder in detail</summary><br><b>
@@ -8823,11 +9635,13 @@ A list of services and their endpoints
 </b></details>
 
 <details>
-<summary>What DevOps security best practices are you familiar with?</summary><br><b>
+<summary>What security techniques are you familiar with? (or what security techniques have you used in the past?)</summary><br><b>
 </b></details>
 
 <details>
-<summary>What security techniques are you familiar with? (or what security techniques you used in the past?)</summary><br><b>
+<summary>What the "Zero Trust" concept means? How Organizations deal with it?</summary><br><b>
+
+[Codefresh definition](https://codefresh.io/security-testing/codefresh-runner-overview): "Zero trust is a security concept that is centered around the idea that organizations should never trust anyone or anything that does not originate from their domains. Organizations seeking zero trust automatically assume that any external services it commissions have security breaches and may leak sensitive information"
 </b></details>
 
 <details>
@@ -8838,15 +9652,13 @@ Authorization is the process of identifying what level of access the service or 
 </b></details>
 
 <details>
-<summary>How do you manage passwords in different tools and platforms?</summary><br><b>
+<summary>How do you manage sensitive information (like passwords) in different tools and platforms?</summary><br><b>
 </b></details>
 
 <details>
 <summary>Explain what is Single Sign-On</summary><br><b>
 
 SSO (Single Sign-on), is a method of access control that enables a user to log in once and gain access to the resources of multiple software systems without being prompted to log in again.
-
-
 </b></details>
 
 <details>
@@ -9699,33 +10511,103 @@ Data about data. Basically, it describes the type of information that an underly
 </b></details>
 
 <details>
-<summary>What is latency?</summary><br><b>
+<summary>You can use one of the following formats: JSON, YAML, XML. Which one would you use? Why?</summary><br><b>
+
+I can't answer this for you :)
+</b></details>
+
+#### YAML
+
+<details>
+<summary>What is YAML?</summary><br><b>
+
+Data serialization language used by many technologies today like Kubernetes, Ansible, etc.
 </b></details>
 
 <details>
-<summary>What is bandwidth?</summary><br><b>
+<summary>True or False? Any valid JSON file is also a valid YAML file</summary><br><b>
+
+True. Because YAML is superset of JSON.
 </b></details>
 
 <details>
-<summary>What is throughput?</summary><br><b>
+<summary>What is the format of the following data?
+
+```
+{
+    applications: [
+        {
+            name: "my_app",
+            language: "python",
+            version: 20.17
+        }
+    ]
+}
+```
+</summary><br><b>
+JSON
 </b></details>
 
 <details>
-<summary>When performing a search query, what is more important, latency or throughput? And how to assure that what managing global infrastructure?</summary><br><b>
+<summary>What is the format of the following data?
 
-Latency. To have a good latency, a search query should be forwarded to the closest datacenter.
+```
+applications:
+  - app: "my_app"
+    language: "python"
+    version: 20.17
+```
+</summary><br><b>
+YAML
 </b></details>
 
 <details>
-<summary>When uploading a video, what is more important, latency or throughput? And how to assure that?</summary><br><b>
+<summary>How to write a multi-line string with YAML? What use cases is it good for?</summary><br><b>
 
-Throughput. To have a good throughput, the upload stream should be routed to an underutilized link.
+```
+someMultiLineString: |
+  look mama
+  I can write a multi-line string
+  I love YAML
+```
+
+It's good for use cases like writing a shell script where each line of the script is a different command.
 </b></details>
 
 <details>
-<summary>What other considerations (except latency and throughput) are there when forwarding requests?</summary><br><b>
+<summary>What is the difference between <code>someMultiLineString: |</code> to <code>someMultiLineString: ></code>?</summary><br><b>
 
-* Keep caches updated (which means the request could be forwarded not to the closest datacenter)
+using `>` will make the multi-line string to fold into a single line
+
+```
+someMultiLineString: >
+  This is actually
+  a single line
+  do not let appearances fool you
+```
+</b></details>
+
+<details>
+<summary>What are placeholders in YAML?</summary><br><b>
+
+They allow you reference values instead of directly writing them and it is used like this:
+
+```
+username: {{ my.user_name }}
+```
+</b></details>
+
+<details>
+<summary>How can you define multiple YAML components in one file?</summary><br><b>
+
+Using this: `---`
+For Examples:
+
+```
+document_number: 1
+---
+document_number: 2
+```
 </b></details>
 
 #### Jira
@@ -9800,13 +10682,13 @@ percentage ratio
 <details>
 <summary>True or False? HTTP is stateful</summary><br><b>
 
-False. Server doesn't maintain state for incoming request.
+False. It doesn't maintain state for incoming request.
 </b></details>
 
 <details>
 <summary>How HTTP request looks like?</summary><br><b>
 
-It consits of:
+It consists of:
 
  * Request line - request type
  * Headers - content info like length, enconding, etc.
@@ -9853,6 +10735,12 @@ TODO: explain what is actually a Cookie
 </b></details>
 
 <details>
+<summary>You get "504 Gateway Timeout" error from an HTTP server. What does it mean?</summary><br><b>
+
+The server didn't receive a response from another server it communicates with in a timely manner.
+</b></details>
+
+<details>
 <summary>What is a proxy?</summary><br><b>
 </b></details>
 
@@ -9883,18 +10771,20 @@ TODO: explain what is actually a Cookie
 </b></details>
 
 <details>
+<summary>At what layers a load balancer can operate?</summary><br><b>
+
+L4 and L7
+</b></details>
+
+<details>
 <summary>What is DNS load balancing? What its advantages? When would you use it?</summary><br><b>
 </b></details>
 
 <details>
-<summary>What are sticky sessions?</summary><br><b>
+<summary>What are sticky sessions? What are their pros and cons?</summary><br><b>
 
 Recommended read:
   * [Red Hat Article](https://access.redhat.com/solutions/900933)
-</b></details>
-
-<details>
-<summary>What are the cons and pros of sticky sessions?</summary><br><b>
 
 Cons:
   * Can cause uneven load on instance (since requests routed to the same instances)
@@ -9903,7 +10793,7 @@ Pros:
 </b></details>
 
 <details>
-<summary>Explain the following load balancing techniques:
+<summary>Explain the following load balancing algorithms:
 
   * Round Robin
   * Least Connection
@@ -10283,9 +11173,9 @@ Bonus: extract the last word of each line
 <summary>Replace 'red' with 'green'</summary><br><b>
 </b></details>
 
-## System Design
+## System Designotebookn
 
-This section contains only questions on System Design subject. The exercises can be found in [system-design-exercises repository](https://github.com/bregman-arie/system-design-exercises).
+This section contains only questions on System Design subject. The exercises can be found in [system-design-notebook repository](https://github.com/bregman-arie/system-design-notebook).
 
 #### Architecture
 
@@ -10733,6 +11623,12 @@ Below you can find several exercises
 * [ELK & Filebeat](exercises/eflk.md)
 * [Ansible, Minikube and Docker](exercises/ansible_minikube_docker.md)
 * [Cloud Slack bot](exercises/cloud_slack_bot.md)
+
+## Other DevOps Projects
+
+<p align="center"><a href="https://github.com/bregman-arie/howtheydevops"><img src="images/how_they_devops.png"/></a></p>
+<p align="center"><a href="https://github.com/bregman-arie/devops-resources"><img src="images/devops_resources.png"/></a></p>
+<p align="center"><a href="https://github.com/bregman-arie/infraverse"><img src="images/infraverse.png"/></a></p>
 
 ## Credits
 
